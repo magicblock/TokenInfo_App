@@ -19,6 +19,7 @@ import com.tokeninfo.ui.contract.MainContract;
 import com.tokeninfo.ui.presenter.MainPresenter;
 import com.tokeninfo.util.TimeUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ARouter.getInstance().inject(this);
+        EventBus.getDefault().register(this);
 
         new MainPresenter(this).start();
     }
@@ -93,6 +95,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
     public void onMessageEvent(MessageEvent messageEvent) {
         String content = messageEvent.getContent();
 
+        txtLog.append("\n");
         String show = getString(R.string.log_format, TimeUtil.getCurrentTimeInString(TimeUtil.DEFAULT_DATE_FORMAT), content);
         txtLog.append(show);
     }
@@ -110,5 +113,6 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

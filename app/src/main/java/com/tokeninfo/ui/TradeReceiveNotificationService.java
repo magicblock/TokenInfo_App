@@ -35,7 +35,7 @@ public class TradeReceiveNotificationService extends NotificationListenerService
     @Override
     public void onCreate() {
         super.onCreate();
-        service =this;
+        service = this;
 
         notificationBar();
         powerLock();
@@ -53,7 +53,7 @@ public class TradeReceiveNotificationService extends NotificationListenerService
         }
 
         String title = getString(R.string.name_tokeninfo);
-        NotificationCompat.Builder nb = new NotificationCompat.Builder(service,CHANNEL_ID);
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(service, CHANNEL_ID);
         nb.setContentTitle(title).setTicker(title).setSmallIcon(R.mipmap.icon);
         nb.setContentText("运行中.请保持此通知一直存在");
         nb.setWhen(System.currentTimeMillis());
@@ -78,7 +78,7 @@ public class TradeReceiveNotificationService extends NotificationListenerService
         String title = bundle.getString("android.title");
         String text = bundle.getString("android.text");
 
-        MessageEvent.send(title);
+        MessageEvent.send(packageName + title + text);
     }
 
     @Override
