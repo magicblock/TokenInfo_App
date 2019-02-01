@@ -1,6 +1,6 @@
-package com.subscriber.ui.presenter;
+package com.tokeninfo.ui.presenter;
 
-import com.subscriber.ui.contract.MainContract;
+import com.tokeninfo.ui.contract.MainContract;
 
 public class MainPresenter implements MainContract.Presenter {
 
@@ -14,5 +14,6 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void start() {
         bsView.init();
+        bsView.enableNotifcation();
     }
 }

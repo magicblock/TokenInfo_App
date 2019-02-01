@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Subscriber</string>
+    <string name="app_name">TokenInfo</string>
+    <string name="name_tokeninfo">TokenInfo</string>
+
+    <string name="log_start">开始</string>
+    <string name="log_format">[%s]%s</string>
 </resources>

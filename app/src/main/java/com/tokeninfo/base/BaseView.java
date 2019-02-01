@@ -1,4 +1,4 @@
-package com.subscriber.base;
+package com.tokeninfo.base;
 
 import android.app.Activity;
 

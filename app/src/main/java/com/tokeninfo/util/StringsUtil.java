@@ -1,4 +1,4 @@
-package com.subscriber.util;
+package com.tokeninfo.util;
 
 public class StringsUtil {
 }
