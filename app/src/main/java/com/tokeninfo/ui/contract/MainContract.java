@@ -7,11 +7,12 @@ public interface MainContract {
 
     interface BsView extends BaseView<Presenter> {
 
-        void  enableNotifcation();
+        void enableNotifcation();
 
     }
 
     interface Presenter extends BasePresenter {
 
+        void uploadNotification(String notification);
     }
 }

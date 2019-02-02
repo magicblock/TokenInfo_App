@@ -4,4 +4,10 @@
 
     <string name="log_start">[开始]</string>
     <string name="log_format">[%s]%s</string>
+
+    <string name="tip_ip">输入 ip</string>
+    <string name="tip_port">输入 端口</string>
+    <string name="save">保存</string>
+    <string name="error_network_timeout">网络超时</string>
+
 </resources>

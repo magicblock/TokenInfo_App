@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="txt_log" type="id" />
+
+    <item name="edit_host" type="id" />
+    <item name="edit_port" type="id" />
+
+    <item name="btn_save" type="id" />
 </resources>

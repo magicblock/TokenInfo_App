@@ -1,12 +1,19 @@
 package com.tokeninfo.ui.presenter;
 
+import android.app.Activity;
+import android.widget.Toast;
+
 import com.tokeninfo.ui.contract.MainContract;
+import com.tokeninfo.util.okhttp.Callback.BaseCallBack;
+import com.tokeninfo.util.okhttp.OKHttpUtil;
+import com.tokeninfo.util.okhttp.request.BiCoinRequest;
 
 public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.BsView bsView;
+    private Activity activity;
 
-    public MainPresenter(MainContract.BsView bsView){
+    public MainPresenter(MainContract.BsView bsView) {
         this.bsView = bsView;
         this.bsView.setPresenter(this);
     }
@@ -14,6 +21,29 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void start() {
         bsView.init();
+        activity = bsView.bsView();
         bsView.enableNotifcation();
+    }
+
+    @Override
+    public void uploadNotification(String notification) {
+        String value = "notification=" + notification;
+        BiCoinRequest coinRequest = new BiCoinRequest(value);
+        OKHttpUtil.client().request(coinRequest, new BaseCallBack<String>(activity) {
+            @Override
+            public void success(String string) {
+                Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+
+            }
+
+            @Override
+            public void netError() {
+
+            }
+        });
     }
 }

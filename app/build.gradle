@@ -39,12 +39,16 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.0.1'
     implementation "com.google.android.material:material:1.1.0-alpha02"
 
-    //注解
+    // 注解
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-    //ARouter
+    // ARouter
     implementation 'com.alibaba:arouter-api:1.4.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     // EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
+    // okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    // gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
