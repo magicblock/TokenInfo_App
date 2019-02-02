@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -49,6 +50,8 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
     @Override
     public void init() {
         activity = this;
+        txtLog.setText(getString(R.string.log_start));
+        txtLog.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         PackageManager localPackageManager = getPackageManager();
         ComponentName componentName = new ComponentName(activity, TradeReceiveNotificationService.class);
