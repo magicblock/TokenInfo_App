@@ -10,8 +10,8 @@
         android:id="@id/edit_host"
         android:layout_width="@dimen/dp_200"
         android:layout_height="wrap_content"
-        android:text="192.168.1.104"
         android:hint="@string/tip_ip"
+        android:text="192.168.1.104"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +29,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"
+        app:layout_constraintTop_toBottomOf="@id/edit_host" />
+
+    <Button
+        android:id="@id/btn_clear_token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_token"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_host" />
+
+    <Button
+        android:id="@id/btn_upload_token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_12"
+        android:text="@string/upload_token"
+        app:layout_constraintRight_toLeftOf="@id/btn_clear_token"
         app:layout_constraintTop_toBottomOf="@id/edit_host" />
 
     <TextView

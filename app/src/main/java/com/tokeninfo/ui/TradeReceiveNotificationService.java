@@ -14,6 +14,7 @@ import android.service.notification.StatusBarNotification;
 
 import com.tokeninfo.R;
 import com.tokeninfo.ui.bean.MessageEvent;
+import com.tokeninfo.ui.bean.NotificationBean;
 
 import androidx.core.app.NotificationCompat;
 
@@ -78,7 +79,10 @@ public class TradeReceiveNotificationService extends NotificationListenerService
         String title = bundle.getString("android.title");
         String text = bundle.getString("android.text");
 
-        MessageEvent.send(packageName + title + text);
+        if (!packageName.equals(getPackageName())) {
+            NotificationBean notificationBean = new NotificationBean(packageName,title,text);
+            MessageEvent.send(MessageEvent.MessageEnum.Notification,notificationBean);
+        }
     }
 
     @Override

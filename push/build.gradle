@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // hw push
+    implementation 'com.huawei.android.hms:push:2.6.3.301'
+
+    implementation 'com.huawei.android.hms:iap:2.6.3.301'
+    implementation 'com.huawei.android.hms:game:2.6.3.301'
+    implementation 'com.huawei.android.hms:sns:2.6.3.301'
+    implementation 'com.huawei.android.hms:hwid:2.6.3.301'
+    implementation 'com.huawei.android.hms:push:2.6.3.301'
+    implementation 'com.huawei.android.hms:opendevice:2.6.3.301'
+}

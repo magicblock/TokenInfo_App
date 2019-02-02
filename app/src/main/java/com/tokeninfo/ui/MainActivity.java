@@ -12,21 +12,20 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.PushCallback;
+import com.PushSDK;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tokeninfo.R;
 import com.tokeninfo.base.BaseActivity;
 import com.tokeninfo.ui.bean.MessageEvent;
+import com.tokeninfo.ui.bean.NotificationBean;
 import com.tokeninfo.ui.contract.MainContract;
 import com.tokeninfo.ui.presenter.MainPresenter;
 import com.tokeninfo.util.ApiUtil;
 import com.tokeninfo.util.TimeUtil;
-import com.tokeninfo.util.okhttp.Callback.BaseCallBack;
-import com.tokeninfo.util.okhttp.OKHttpUtil;
-import com.tokeninfo.util.okhttp.Request;
-import com.tokeninfo.util.okhttp.request.BiCoinRequest;
+import com.tokeninfo.util.share.AppInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,6 +64,15 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         activity = this;
         txtLog.setText(getString(R.string.log_start));
         txtLog.setMovementMethod(ScrollingMovementMethod.getInstance());
+
+        PushSDK.getPushSDK().connnect(activity, new PushCallback() {
+
+            @Override
+            public void token(String token) {
+                MessageEvent.send(MessageEvent.MessageEnum.Notice, token);
+                AppInfo.getAppInfo().setPushToken(token);
+            }
+        });
 
         PackageManager localPackageManager = getPackageManager();
         ComponentName componentName = new ComponentName(activity, TradeReceiveNotificationService.class);
@@ -109,16 +117,26 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent messageEvent) {
-        String content = messageEvent.getContent();
+        MessageEvent.MessageEnum messageEnum = messageEvent.getMessageEnum();
+
+        String showContent = "";
+        switch (messageEnum) {
+            case Notice:
+                showContent = (String) messageEvent.getObj();
+                break;
+            case Notification:
+                NotificationBean notificationBean = (NotificationBean) messageEvent.getObj();
+                presenter.uploadNotification(notificationBean);
+
+                showContent = getString(R.string.log_format, TimeUtil.getCurrentTimeInString(TimeUtil.DEFAULT_DATE_FORMAT), notificationBean.toString());
+                break;
+        }
 
         txtLog.append("\n");
-        String show = getString(R.string.log_format, TimeUtil.getCurrentTimeInString(TimeUtil.DEFAULT_DATE_FORMAT), content);
-        txtLog.append(show);
-
-        presenter.uploadNotification(content);
+        txtLog.append(showContent);
     }
 
-    @OnClick({R.id.btn_save, R.id.txt_log})
+    @OnClick({R.id.btn_save, R.id.txt_log, R.id.btn_clear_token, R.id.btn_upload_token})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_save:
@@ -127,7 +145,16 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
                 ApiUtil.setSERVER("http://" + ip + ":" + port);
                 break;
             case R.id.txt_log:
-                presenter.uploadNotification("log");
+                NotificationBean bean = new NotificationBean("pkg", "title", "content");
+                presenter.uploadNotification(bean);
+                break;
+            case R.id.btn_clear_token:
+                String clear = AppInfo.getAppInfo().getPushToken();
+                presenter.clearPushToken(clear);
+                break;
+            case R.id.btn_upload_token:
+                String upload = AppInfo.getAppInfo().getPushToken();
+                presenter.uploadPushToken(upload);
                 break;
         }
     }

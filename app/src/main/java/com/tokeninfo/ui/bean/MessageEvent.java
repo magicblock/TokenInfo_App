@@ -4,18 +4,29 @@ import org.greenrobot.eventbus.EventBus;
 
 public class MessageEvent {
 
-    private String content;
+    private MessageEnum messageEnum;
+    private Object obj;
 
-    public MessageEvent(String content) {
-        this.content = content;
+    public MessageEvent(MessageEnum e, Object obj) {
+        this.messageEnum = e;
+        this.obj = obj;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public static void send(String content) {
-        MessageEvent messageEvent = new MessageEvent(content);
+    public static void send(MessageEnum e, Object obj) {
+        MessageEvent messageEvent = new MessageEvent(e, obj);
         EventBus.getDefault().post(messageEvent);
+    }
+
+    public MessageEnum getMessageEnum() {
+        return messageEnum;
+    }
+
+    public Object getObj() {
+        return obj;
+    }
+
+    public enum MessageEnum {
+        Notice,
+        Notification,
     }
 }

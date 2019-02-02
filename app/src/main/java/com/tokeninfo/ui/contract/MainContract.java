@@ -2,6 +2,7 @@ package com.tokeninfo.ui.contract;
 
 import com.tokeninfo.base.BasePresenter;
 import com.tokeninfo.base.BaseView;
+import com.tokeninfo.ui.bean.NotificationBean;
 
 public interface MainContract {
 
@@ -13,6 +14,10 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
 
-        void uploadNotification(String notification);
+        void clearPushToken(String userToken);
+
+        void uploadPushToken(String userToken);
+
+        void uploadNotification(NotificationBean notificationBean);
     }
 }

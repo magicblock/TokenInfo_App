@@ -6,4 +6,6 @@
     <item name="edit_port" type="id" />
 
     <item name="btn_save" type="id" />
+    <item name="btn_clear_token" type="id" />
+    <item name="btn_upload_token" type="id" />
 </resources>
