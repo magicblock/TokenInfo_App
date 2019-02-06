@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         String showContent = "";
         switch (messageEnum) {
             case Notice:
-                showContent = (String) messageEvent.getObj();
+                showContent = getString(R.string.log_push_token, (String) messageEvent.getObj());
                 break;
             case Notification:
                 NotificationBean notificationBean = (NotificationBean) messageEvent.getObj();

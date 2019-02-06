@@ -11,7 +11,7 @@
         android:layout_width="@dimen/dp_200"
         android:layout_height="wrap_content"
         android:hint="@string/tip_ip"
-        android:text="192.168.1.104"
+        android:text="192.168.1.105"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

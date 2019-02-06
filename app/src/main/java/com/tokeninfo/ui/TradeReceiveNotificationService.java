@@ -79,6 +79,10 @@ public class TradeReceiveNotificationService extends NotificationListenerService
         String title = bundle.getString("android.title");
         String text = bundle.getString("android.text");
 
+        if("android".equals(packageName)){//系统通知
+            return;
+        }
+
         if (!packageName.equals(getPackageName())) {
             NotificationBean notificationBean = new NotificationBean(packageName,title,text);
             MessageEvent.send(MessageEvent.MessageEnum.Notification,notificationBean);
