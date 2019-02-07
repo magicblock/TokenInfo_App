@@ -12,6 +12,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.PushCallback;
 import com.PushSDK;
@@ -64,6 +65,10 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         activity = this;
         txtLog.setText(getString(R.string.log_start));
         txtLog.setMovementMethod(ScrollingMovementMethod.getInstance());
+
+        String ip = editHost.getText().toString();
+        String port = editPort.getText().toString();
+        ApiUtil.setSERVER("http://" + ip + ":" + port);
 
         PushSDK.getPushSDK().connnect(activity, new PushCallback() {
 
@@ -122,7 +127,9 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         String showContent = "";
         switch (messageEnum) {
             case Notice:
-                showContent = getString(R.string.log_push_token, (String) messageEvent.getObj());
+                String token = (String) messageEvent.getObj();
+                showContent = getString(R.string.log_push_token, token);
+                presenter.uploadPushToken(token);
                 break;
             case Notification:
                 NotificationBean notificationBean = (NotificationBean) messageEvent.getObj();
@@ -136,7 +143,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         txtLog.append(showContent);
     }
 
-    @OnClick({R.id.btn_save, R.id.txt_log, R.id.btn_clear_token, R.id.btn_upload_token})
+    @OnClick({R.id.btn_save, R.id.txt_log, R.id.btn_clear_token})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_save:
@@ -149,12 +156,9 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
                 presenter.uploadNotification(bean);
                 break;
             case R.id.btn_clear_token:
-                String clear = AppInfo.getAppInfo().getPushToken();
-                presenter.clearPushToken(clear);
-                break;
-            case R.id.btn_upload_token:
-                String upload = AppInfo.getAppInfo().getPushToken();
-                presenter.uploadPushToken(upload);
+                boolean b = AppInfo.getAppInfo().getReceivePush();
+                AppInfo.getAppInfo().setReceivePush(!b);
+                Toast.makeText(activity, b ? "接受推送" : "取消推送", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

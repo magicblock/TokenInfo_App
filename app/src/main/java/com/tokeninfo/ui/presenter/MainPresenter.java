@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.tokeninfo.ui.bean.NotificationBean;
 import com.tokeninfo.ui.contract.MainContract;
+import com.tokeninfo.util.DeviceUtil;
 import com.tokeninfo.util.okhttp.Callback.BaseCallBack;
 import com.tokeninfo.util.okhttp.OKHttpUtil;
 import com.tokeninfo.util.okhttp.request.BiCoinRequest;
@@ -53,7 +54,8 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void uploadPushToken(String userToken) {
-        String value = "token=" + userToken;
+        String device = DeviceUtil.deviceName();
+        String value = "device=" + device + "&token=" + userToken;
         UploadTokenRequest tokenRequest = new UploadTokenRequest(value);
         OKHttpUtil.client().request(tokenRequest, new BaseCallBack<String>(activity) {
             @Override
