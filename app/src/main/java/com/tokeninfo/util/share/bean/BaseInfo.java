@@ -124,4 +124,14 @@ public class BaseInfo {
         }
         return value;
     }
+
+    public boolean getBoolean(String key,boolean d) {
+        boolean value = d;
+        if (valueMap.containsKey(key)) {
+            value = (boolean) valueMap.get(key);
+        } else {
+            value = preferences.getBoolean(key, false);
+        }
+        return value;
+    }
 }

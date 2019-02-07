@@ -19,3 +19,26 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#指定压缩级别
+-optimizationpasses 5
+
+#不跳过非公共的库的类成员
+-dontskipnonpubliclibraryclassmembers
+
+#混淆时采用的算法
+-optimizations !code/simplification/arithmetic,!field
+
+# 华为推送
+-ignorewarning
+-keepattributes *Annotation*
+-keepattributes Exceptions
+-keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
+-keep class com.hianalytics.android.**{*;}
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}
+-keep class com.huawei.android.hms.agent.**{*;}
+-keep class com.huawei.appmarket.**{*;}
+-keep class com.huawei.hmf.**{*;}

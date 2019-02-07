@@ -15,6 +15,7 @@ import android.service.notification.StatusBarNotification;
 import com.tokeninfo.R;
 import com.tokeninfo.ui.bean.MessageEvent;
 import com.tokeninfo.ui.bean.NotificationBean;
+import com.tokeninfo.util.share.AppInfo;
 
 import androidx.core.app.NotificationCompat;
 
@@ -79,13 +80,17 @@ public class TradeReceiveNotificationService extends NotificationListenerService
         String title = bundle.getString("android.title");
         String text = bundle.getString("android.text");
 
-        if("android".equals(packageName)){//系统通知
+        if ("android".equals(packageName)) {//系统通知
+            return;
+        }
+
+        if (!AppInfo.getAppInfo().getReceivePush() && "com.tokeninfo".equals(packageName)) {//是否接受自己的通知
             return;
         }
 
         if (!packageName.equals(getPackageName())) {
-            NotificationBean notificationBean = new NotificationBean(packageName,title,text);
-            MessageEvent.send(MessageEvent.MessageEnum.Notification,notificationBean);
+            NotificationBean notificationBean = new NotificationBean(packageName, title, text);
+            MessageEvent.send(MessageEvent.MessageEnum.Notification, notificationBean);
         }
     }
 
