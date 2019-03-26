@@ -22,7 +22,6 @@ public class MainPresenter implements MainContract.Presenter {
     public void start() {
         bsView.init();
         activity = bsView.bsView();
-        bsView.enableNotifcation();
     }
 
     @Override
