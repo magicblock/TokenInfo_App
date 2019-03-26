@@ -5,7 +5,7 @@
     <item name="edit_host" type="id" />
     <item name="edit_port" type="id" />
 
-    <item name="btn_save" type="id" />
+    <item name="btn_send" type="id" />
     <item name="btn_clear_token" type="id" />
     <item name="btn_upload_token" type="id" />
 </resources>

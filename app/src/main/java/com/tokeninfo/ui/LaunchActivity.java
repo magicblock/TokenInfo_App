@@ -1,8 +1,8 @@
 package com.tokeninfo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.tokeninfo.R;
 import com.tokeninfo.base.BaseActivity;
 import com.tokeninfo.util.PermissionUtil;
@@ -41,7 +41,9 @@ public class LaunchActivity extends BaseActivity {
         @Override
         public void granted(String[] permissions) {
             if (permissions != null || permissions.length == Permissions.length) {
-                ARouter.getInstance().build("/main/main").navigation(activity);
+                Intent intent = new Intent();
+                intent.setClass(activity, MainActivity.class);
+                activity.startActivity(intent);
             }
         }
 

@@ -12,31 +12,22 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.PushCallback;
 import com.PushSDK;
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.tokeninfo.R;
 import com.tokeninfo.base.BaseActivity;
 import com.tokeninfo.ui.bean.MessageEvent;
-import com.tokeninfo.ui.bean.NotificationBean;
 import com.tokeninfo.ui.contract.MainContract;
 import com.tokeninfo.ui.presenter.MainPresenter;
 import com.tokeninfo.util.ApiUtil;
-import com.tokeninfo.util.TimeUtil;
 import com.tokeninfo.util.share.AppInfo;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-@Route(path = "/main/main")
 public class MainActivity extends BaseActivity implements MainContract.BsView {
 
     @BindView(R.id.txt_log)
@@ -54,7 +45,6 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ARouter.getInstance().inject(this);
         EventBus.getDefault().register(this);
 
         new MainPresenter(this).start();
@@ -76,6 +66,8 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
             public void token(String token) {
                 MessageEvent.send(MessageEvent.MessageEnum.Notice, token);
                 AppInfo.getAppInfo().setPushToken(token);
+
+                presenter.uploadPushToken(token);
             }
         });
 
@@ -129,13 +121,6 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
             case Notice:
                 String token = (String) messageEvent.getObj();
                 showContent = getString(R.string.log_push_token, token);
-                presenter.uploadPushToken(token);
-                break;
-            case Notification:
-                NotificationBean notificationBean = (NotificationBean) messageEvent.getObj();
-                presenter.uploadNotification(notificationBean);
-
-                showContent = getString(R.string.log_format, TimeUtil.getCurrentTimeInString(TimeUtil.DEFAULT_DATE_FORMAT), notificationBean.toString());
                 break;
         }
 
@@ -143,22 +128,12 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         txtLog.append(showContent);
     }
 
-    @OnClick({R.id.btn_save, R.id.txt_log, R.id.btn_clear_token})
+    @OnClick({R.id.btn_send, R.id.txt_log})
     void OnClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_save:
-                String ip = editHost.getText().toString();
-                String port = editPort.getText().toString();
-                ApiUtil.setSERVER("http://" + ip + ":" + port);
-                break;
-            case R.id.txt_log:
-                NotificationBean bean = new NotificationBean("pkg", "title", "content");
-                presenter.uploadNotification(bean);
-                break;
-            case R.id.btn_clear_token:
-                boolean b = AppInfo.getAppInfo().getReceivePush();
-                AppInfo.getAppInfo().setReceivePush(!b);
-                Toast.makeText(activity, b ? "接受推送" : "取消推送", Toast.LENGTH_SHORT).show();
+            case R.id.btn_send:
+                String token = AppInfo.getAppInfo().getPushToken();
+                presenter.uploadPushToken(token);
                 break;
         }
     }

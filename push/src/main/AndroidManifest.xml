@@ -120,17 +120,6 @@
         <meta-data
             android:name="com.huawei.hms.version"
             android:value="2.6.1"></meta-data>
-        <activity
-            android:name="com.huawei.android.hms.agent.common.HMSAgentActivity"
-            android:configChanges="orientation|locale|screenSize|layoutDirection|fontScale"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:hardwareAccelerated="true"
-            android:theme="@android:style/Theme.Translucent" >
-            <meta-data
-                android:name="hwc-theme"
-                android:value="androidhwext:style/Theme.Emui.Translucent" />
-        </activity>
 
         <activity
             android:name="com.huawei.android.hms.agent.pay.HMSPayAgentActivity"

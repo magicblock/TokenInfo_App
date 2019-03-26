@@ -3,7 +3,6 @@ package com.tokeninfo.base;
 import android.app.Application;
 
 import com.PushSDK;
-import com.alibaba.android.arouter.launcher.ARouter;
 
 public class BaseApplication extends Application {
 
@@ -16,11 +15,7 @@ public class BaseApplication extends Application {
         init();
     }
 
-    protected void init() {
-        ARouter.openLog();
-        ARouter.openDebug();
-        ARouter.init(this);
-
+    private void init() {
         PushSDK.getPushSDK().init(this);
     }
 
