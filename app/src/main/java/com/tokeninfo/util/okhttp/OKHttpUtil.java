@@ -37,7 +37,6 @@ public class OKHttpUtil {
     }
 
     public void request(BaseRequest baseRequest, BaseCallBack baseCallBack) {
-        LogUtil.d(TAg, "Uri: " + baseRequest.requstUri());
         baseCallBack.setHandler(handler);
 
         Call call = httpClient.newCall(baseRequest.request());

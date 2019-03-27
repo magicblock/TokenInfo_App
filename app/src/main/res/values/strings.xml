@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TokenInfo</string>
+    <string name="app_name">飞鸽</string>
     <string name="name_tokeninfo">TokenInfo</string>
 
     <string name="log_start">[开始]</string>
@@ -7,7 +7,8 @@
 
     <string name="tip_ip">输入 ip</string>
     <string name="tip_port">输入 端口</string>
-    <string name="send">发送</string>
+    <string name="upload">上传</string>
+    <string name="refresh">刷新</string>
     <string name="error_network_timeout">网络超时</string>
     <string name="log_push_token">[推送 Token]%s</string>
 

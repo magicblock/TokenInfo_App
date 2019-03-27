@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="txt_log" type="id" />
+    <item name="txt_symbol" type="id" />
+    <item name="txt_price" type="id" />
 
-    <item name="edit_host" type="id" />
-    <item name="edit_port" type="id" />
+    <item name="edit_server" type="id" />
+    <item name="edit_symbol" type="id" />
+    <item name="edit_price" type="id" />
 
-    <item name="btn_send" type="id" />
-    <item name="btn_clear_token" type="id" />
+    <item name="btn_server" type="id" />
+    <item name="btn_refresh" type="id" />
+    <item name="btn_upload" type="id" />
     <item name="btn_upload_token" type="id" />
+
+    <item name="recyclerview" type="id" />
 </resources>
