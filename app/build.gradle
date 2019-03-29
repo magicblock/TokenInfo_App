@@ -47,7 +47,7 @@ android {
     //release版本输出包名 追加版本号和版本名称
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "v_tokenInfo.apk"
+            outputFileName = "v_tokenPush.apk"
         }
     }
 }

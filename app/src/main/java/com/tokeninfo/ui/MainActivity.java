@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
     public void init() {
         activity = this;
 
-        ApiUtil.SERVER = "http:" + editServer.getText().toString() + ":8099";
+        ApiUtil.SERVER = "http://" + editServer.getText().toString() + ":9000";
         PushSDK.getPushSDK().connnect(activity, new PushCallback() {
 
             @Override
@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_server:
-                ApiUtil.SERVER = "http:" + editServer.getText().toString() + ":8099";
+                ApiUtil.SERVER = "http://" + editServer.getText().toString() + ":9000";
                 String token = AppInfo.getAppInfo().getPushToken();
                 presenter.uploadPushToken(token);
                 break;
