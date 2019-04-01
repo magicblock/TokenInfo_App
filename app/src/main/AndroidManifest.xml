@@ -30,5 +30,10 @@
             android:name=".ui.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+                android:name=".ui.SetActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait" />
     </application>
 </manifest>

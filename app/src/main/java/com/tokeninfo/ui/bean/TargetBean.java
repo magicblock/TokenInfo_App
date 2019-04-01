@@ -11,8 +11,17 @@ public class TargetBean implements Serializable {
      * Price : 4000
      */
 
+    private String Plat;
     private String Symbol;
     private float Price;
+
+    public String getPlat() {
+        return Plat;
+    }
+
+    public void setPlat(String plat) {
+        Plat = plat;
+    }
 
     public String getSymbol() {
         return Symbol;

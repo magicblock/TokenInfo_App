@@ -1,16 +1,13 @@
 package com.tokeninfo.ui.presenter;
 
 import android.app.Activity;
-import android.widget.Toast;
 import com.tokeninfo.ui.bean.TargetBean;
 import com.tokeninfo.ui.contract.MainContract;
-import com.tokeninfo.util.DeviceUtil;
 import com.tokeninfo.util.okhttp.Callback.BaseCallBack;
 import com.tokeninfo.util.okhttp.OKHttpUtil;
 import com.tokeninfo.util.okhttp.request.RemoveRequest;
 import com.tokeninfo.util.okhttp.request.TargetListRequest;
 import com.tokeninfo.util.okhttp.request.UploadTargetRequest;
-import com.tokeninfo.util.okhttp.request.UploadTokenRequest;
 
 import java.util.List;
 
@@ -31,31 +28,8 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void uploadPushToken(String userToken) {
-        String device = DeviceUtil.deviceName();
-        String value = "device=" + device + "&token=" + userToken;
-        UploadTokenRequest tokenRequest = new UploadTokenRequest(value);
-        OKHttpUtil.client().request(tokenRequest, new BaseCallBack<String>(activity) {
-            @Override
-            public void success(String string) {
-                Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void serverError(int code, String err) {
-
-            }
-
-            @Override
-            public void netError() {
-
-            }
-        });
-    }
-
-    @Override
-    public void uploadTarget(String symbol,String price) {
-        UploadTargetRequest request = new UploadTargetRequest(symbol,price);
+    public void uploadTarget(String plat,String symbol,String price) {
+        UploadTargetRequest request = new UploadTargetRequest(plat,symbol,price);
         OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
             @Override
             public void success(String string) {
@@ -97,8 +71,8 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void remove(String symbol,String price) {
-        RemoveRequest request = new RemoveRequest(symbol,price);
+    public void remove(String plat,String symbol,String price) {
+        RemoveRequest request = new RemoveRequest(plat,symbol,price);
         OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
             @Override
             public void success(String string) {

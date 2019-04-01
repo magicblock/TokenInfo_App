@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.tokeninfo.util.share.AppInfo;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -45,7 +46,7 @@ public abstract class BaseRequest<T> {
     public Request request() {
         Request.Builder requestBuilder = null;
         if (httpMethod() == HttpMethodEnum.GET) {
-            String url = ApiUtil.SERVER + requstUri();
+            String url = AppInfo.getAppInfo().getCompleteServer()+ requstUri();
             LogUtil.d(TAG, "url: " + url);
 
             requestBuilder = new Request.Builder()
@@ -60,7 +61,7 @@ public abstract class BaseRequest<T> {
                 requestBuilder.addHeader(key, value);
             }
         } else if (httpMethod() == HttpMethodEnum.POST) {
-            String url = ApiUtil.SERVER + requstUri();
+            String url = AppInfo.getAppInfo().getCompleteServer() + requstUri();
 
             String json = new Gson().toJson(requestBody());
             RequestBody body = RequestBody.create(JSON, json);

@@ -15,12 +15,10 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
 
-        void uploadPushToken(String userToken);
-
-        void uploadTarget(String symbol,String price);
+        void uploadTarget(String plat,String symbol,String price);
 
         void refreshList();
 
-        void remove(String symbol,String pricce);
+        void remove(String plat,String symbol,String pricce);
     }
 }

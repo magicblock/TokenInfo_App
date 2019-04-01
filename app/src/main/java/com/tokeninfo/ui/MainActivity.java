@@ -1,13 +1,13 @@
 package com.tokeninfo.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -17,48 +17,40 @@ import com.PushCallback;
 import com.PushSDK;
 import com.tokeninfo.R;
 import com.tokeninfo.base.BaseActivity;
+import com.tokeninfo.ui.adapter.TargetAdapter;
 import com.tokeninfo.ui.bean.TargetBean;
 import com.tokeninfo.ui.contract.MainContract;
 import com.tokeninfo.ui.presenter.MainPresenter;
-import com.tokeninfo.util.ApiUtil;
 import com.tokeninfo.util.share.AppInfo;
+import com.tokeninfo.widget.ToolBar;
 
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainContract.BsView {
 
-    @BindView(R.id.btn_refresh)
-    Button btnRefresh;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
+    @BindView(R.id.toolbar)
+    ToolBar toolbar;
     @BindView(R.id.edit_symbol)
     EditText editSymbol;
     @BindView(R.id.edit_price)
     EditText editPrice;
     @BindView(R.id.btn_upload)
     Button btnUpload;
-    @BindView(R.id.edit_server)
-    EditText editServer;
-    @BindView(R.id.btn_server)
-    Button btnServer;
+    @BindView(R.id.btn_refresh)
+    Button btnRefresh;
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerview;
+    @BindView(R.id.btn_okex)
+    RadioButton btnOkex;
+    @BindView(R.id.btn_binance)
+    RadioButton btnBinance;
+    @BindView(R.id.radiogroup)
+    RadioGroup radiogroup;
 
     private MainActivity activity;
     private MainContract.Presenter presenter;
 
     private TargetAdapter targetAdapter;
-
-    private Handler handler = new Handler(Looper.myLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 120:
-                    String token = (String) msg.obj;
-                    presenter.uploadPushToken(token);
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +64,22 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
     @Override
     public void init() {
         activity = this;
+        toolbar.setTitle("Home");
+        toolbar.setExt("设置");
+        toolbar.setExtListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(activity, SetActivity.class);
+                activity.startActivity(intent);
+            }
+        });
 
-        ApiUtil.SERVER = "http://" + editServer.getText().toString() + ":9000";
         PushSDK.getPushSDK().connnect(activity, new PushCallback() {
 
             @Override
             public void token(String token) {
                 AppInfo.getAppInfo().setPushToken(token);
-
-                Message message = new Message();
-                message.what = 120;
-                message.obj = token;
-                handler.sendMessage(message);
             }
         });
 
@@ -95,7 +91,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
 
             @Override
             public void remove(TargetBean bean) {
-                presenter.remove(bean.getSymbol(), String.valueOf(bean.getPrice()));
+                presenter.remove(bean.getPlat(),bean.getSymbol(), String.valueOf(bean.getPrice()));
             }
         });
     }
@@ -105,18 +101,14 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         targetAdapter.setBeanList(targetBeans);
     }
 
-    @OnClick({R.id.btn_server, R.id.btn_refresh, R.id.btn_upload})
+    @OnClick({R.id.btn_refresh, R.id.btn_upload})
     void OnClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_server:
-                ApiUtil.SERVER = "http://" + editServer.getText().toString() + ":9000";
-                String token = AppInfo.getAppInfo().getPushToken();
-                presenter.uploadPushToken(token);
-                break;
             case R.id.btn_upload:
+                String plat = btnOkex.isChecked() ? "okex" : "binance";
                 String symbol = editSymbol.getText().toString();
                 String price = editPrice.getText().toString();
-                presenter.uploadTarget(symbol, price);
+                presenter.uploadTarget(plat, symbol, price);
                 break;
             case R.id.btn_refresh:
                 presenter.refreshList();
