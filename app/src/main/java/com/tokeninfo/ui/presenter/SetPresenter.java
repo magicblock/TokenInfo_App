@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.widget.Toast;
 import com.tokeninfo.ui.contract.SetContract;
 import com.tokeninfo.util.DeviceUtil;
-import com.tokeninfo.util.okhttp.Callback.BaseCallBack;
+import com.tokeninfo.util.okhttp.Callback.RequstBack;
 import com.tokeninfo.util.okhttp.OKHttpUtil;
 import com.tokeninfo.util.okhttp.request.UploadTokenRequest;
 import com.tokeninfo.util.share.AppInfo;
@@ -32,7 +32,7 @@ public class SetPresenter implements SetContract.Presenter {
 
         String value = "device=" + device + "&token=" + pushToken;
         UploadTokenRequest tokenRequest = new UploadTokenRequest(value);
-        OKHttpUtil.client().request(tokenRequest, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(tokenRequest, new RequstBack<String>(activity) {
             @Override
             public void success(String string) {
                 Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show();

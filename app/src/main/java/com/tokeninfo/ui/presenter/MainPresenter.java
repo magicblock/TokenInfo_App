@@ -3,7 +3,7 @@ package com.tokeninfo.ui.presenter;
 import android.app.Activity;
 import com.tokeninfo.ui.bean.TargetBean;
 import com.tokeninfo.ui.contract.MainContract;
-import com.tokeninfo.util.okhttp.Callback.BaseCallBack;
+import com.tokeninfo.util.okhttp.Callback.RequstBack;
 import com.tokeninfo.util.okhttp.OKHttpUtil;
 import com.tokeninfo.util.okhttp.request.RemoveRequest;
 import com.tokeninfo.util.okhttp.request.TargetListRequest;
@@ -30,7 +30,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void uploadTarget(String plat,String symbol,String price) {
         UploadTargetRequest request = new UploadTargetRequest(plat,symbol,price);
-        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new RequstBack<String>(activity) {
             @Override
             public void success(String string) {
                 refreshList();
@@ -52,7 +52,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void refreshList() {
         TargetListRequest tokenRequest = new TargetListRequest();
-        OKHttpUtil.client().request(tokenRequest, new BaseCallBack<List<TargetBean>>(activity) {
+        OKHttpUtil.client().request(tokenRequest, new RequstBack<List<TargetBean>>(activity) {
             @Override
             public void success(List<TargetBean> targetBeans) {
                 bsView.showTargets(targetBeans);
@@ -73,7 +73,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void remove(String plat,String symbol,String price) {
         RemoveRequest request = new RemoveRequest(plat,symbol,price);
-        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new RequstBack<String>(activity) {
             @Override
             public void success(String string) {
                 refreshList();

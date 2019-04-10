@@ -5,6 +5,8 @@
     <item name="txt_ext" type="id" />
     <item name="txt_symbol" type="id" />
     <item name="txt_price" type="id" />
+    <item name="txt_local" type="id" />
+    <item name="txt_aliyun" type="id" />
 
     <item name="edit_server" type="id" />
     <item name="edit_symbol" type="id" />

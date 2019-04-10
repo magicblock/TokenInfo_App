@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +25,10 @@ public class SetActivity extends BaseActivity implements SetContract.BsView {
     Button btnServer;
     @BindView(R.id.toolbar)
     ToolBar toolbar;
+    @BindView(R.id.txt_local)
+    TextView txtLocal;
+    @BindView(R.id.txt_aliyun)
+    TextView txtAliyun;
 
     private SetActivity activity;
     private SetContract.Presenter presenter;
@@ -53,9 +58,17 @@ public class SetActivity extends BaseActivity implements SetContract.BsView {
         editServer.setText(server);
     }
 
-    @OnClick({R.id.btn_server})
+    @OnClick({R.id.btn_server, R.id.txt_local, R.id.txt_aliyun})
     void OnClick(View view) {
         switch (view.getId()) {
+            case R.id.txt_local:
+                String local = txtLocal.getText().toString();
+                editServer.setText(local);
+                break;
+            case R.id.txt_aliyun:
+                String aliyun = txtAliyun.getText().toString();
+                editServer.setText(aliyun);
+                break;
             case R.id.btn_server:
                 String server = editServer.getText().toString();
                 AppInfo.getAppInfo().setServer(server);
