@@ -21,6 +21,8 @@ import com.tokeninfo.ui.adapter.TargetAdapter;
 import com.tokeninfo.ui.bean.TargetBean;
 import com.tokeninfo.ui.contract.MainContract;
 import com.tokeninfo.ui.presenter.MainPresenter;
+import com.tokeninfo.util.RegexpUtil;
+import com.tokeninfo.util.ToastUtil;
 import com.tokeninfo.util.share.AppInfo;
 import com.tokeninfo.widget.ToolBar;
 
@@ -91,9 +93,12 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
 
             @Override
             public void remove(TargetBean bean) {
-                presenter.remove(bean.getPlat(),bean.getSymbol(), String.valueOf(bean.getPrice()));
+                presenter.remove(bean.getPlat(), bean.getSymbol(), String.valueOf(bean.getPrice()));
             }
         });
+
+        // 默认选中
+        btnOkex.setChecked(true);
     }
 
     @Override
@@ -108,7 +113,12 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
                 String plat = btnOkex.isChecked() ? "okex" : "binance";
                 String symbol = editSymbol.getText().toString();
                 String price = editPrice.getText().toString();
-                presenter.uploadTarget(plat, symbol, price);
+
+                if (RegexpUtil.matches(RegexpUtil.Rule_Float, price)) {
+                    presenter.uploadTarget(plat, symbol, price);
+                } else {
+                    ToastUtil.show(activity, "输入的价格格式不对");
+                }
                 break;
             case R.id.btn_refresh:
                 presenter.refreshList();

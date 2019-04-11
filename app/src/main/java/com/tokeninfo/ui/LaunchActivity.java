@@ -44,6 +44,7 @@ public class LaunchActivity extends BaseActivity {
                 Intent intent = new Intent();
                 intent.setClass(activity, MainActivity.class);
                 activity.startActivity(intent);
+                activity.finish();
             }
         }
 
