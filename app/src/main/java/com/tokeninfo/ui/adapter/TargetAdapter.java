@@ -1,4 +1,4 @@
-package com.tokeninfo.ui;
+package com.tokeninfo.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -36,7 +36,7 @@ public class TargetAdapter extends RecyclerView.Adapter<TargetAdapter.TargetHold
     @Override
     public void onBindViewHolder(@NonNull TargetHolder holder, int position) {
         final TargetBean targetBean = targetBeanList.get(position);
-        String showTxt = targetBean.getSymbol() + "      " + targetBean.getPrice();
+        String showTxt = targetBean.getPlat() + "   " + targetBean.getSymbol() + "      " + targetBean.getPrice();
         holder.symbolTxt.setText(showTxt);
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -71,7 +71,7 @@ public class TargetAdapter extends RecyclerView.Adapter<TargetAdapter.TargetHold
         this.callBack = callBack;
     }
 
-    public interface CallBack{
-        void remove( TargetBean bean);
+    public interface CallBack {
+        void remove(TargetBean bean);
     }
 }

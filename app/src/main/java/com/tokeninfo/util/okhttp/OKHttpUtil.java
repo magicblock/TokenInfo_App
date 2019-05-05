@@ -3,8 +3,7 @@ package com.tokeninfo.util.okhttp;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.tokeninfo.util.log.LogUtil;
-import com.tokeninfo.util.okhttp.Callback.BaseCallBack;
+import com.tokeninfo.util.okhttp.Callback.RequstBack;
 import com.tokeninfo.util.okhttp.request.BaseRequest;
 
 import java.util.concurrent.TimeUnit;
@@ -36,10 +35,10 @@ public class OKHttpUtil {
                 .build();
     }
 
-    public void request(BaseRequest baseRequest, BaseCallBack baseCallBack) {
-        baseCallBack.setHandler(handler);
+    public void request(BaseRequest baseRequest, RequstBack requstBack) {
+        requstBack.setHandler(handler);
 
         Call call = httpClient.newCall(baseRequest.request());
-        call.enqueue(baseCallBack);
+        call.enqueue(requstBack);
     }
 }

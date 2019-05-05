@@ -6,35 +6,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" tools:context="com.tokeninfo.ui.MainActivity">
 
-    <EditText
-            android:id="@id/edit_server"
-            android:layout_width="@dimen/dp_200"
-            android:text="192.168.1.103"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-            android:id="@id/btn_server"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Server"
+    <com.tokeninfo.widget.ToolBar
+            android:id="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="@dimen/dp_0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_height="wrap_content"/>
+
+    <RadioGroup
+            android:id="@id/radiogroup"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <RadioButton
+                android:id="@id/btn_okex"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK"/>
+
+        <RadioButton
+                android:id="@id/btn_binance"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="币安"/>
+    </RadioGroup>
+
 
     <EditText
             android:id="@id/edit_symbol"
-            android:layout_width="@dimen/dp_200"
+            android:layout_width="@dimen/dp_100"
             android:text="btc"
-            app:layout_constraintTop_toBottomOf="@id/edit_server"
+            app:layout_constraintTop_toBottomOf="@id/radiogroup"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-    />
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
     <EditText
             android:id="@id/edit_price"
             android:layout_width="@dimen/dp_100"
             android:text="4000"
+            android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edit_symbol"/>

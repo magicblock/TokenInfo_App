@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="txt_log" type="id" />
+    <item name="txt_title" type="id" />
+    <item name="txt_ext" type="id" />
     <item name="txt_symbol" type="id" />
     <item name="txt_price" type="id" />
+    <item name="txt_local" type="id" />
+    <item name="txt_aliyun" type="id" />
 
     <item name="edit_server" type="id" />
     <item name="edit_symbol" type="id" />
@@ -12,6 +16,13 @@
     <item name="btn_refresh" type="id" />
     <item name="btn_upload" type="id" />
     <item name="btn_upload_token" type="id" />
+    <item name="btn_okex" type="id" />
+    <item name="btn_binance" type="id" />
 
     <item name="recyclerview" type="id" />
+
+    <item name="toolbar" type="id" />
+
+    <item name="radiogroup" type="id" />
+
 </resources>

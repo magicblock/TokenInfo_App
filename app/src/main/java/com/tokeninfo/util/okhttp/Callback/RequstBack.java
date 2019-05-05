@@ -20,7 +20,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public abstract class BaseCallBack<T> implements Callback {
+public abstract class RequstBack<T> implements Callback {
 
     private static String TAG = "_BaseCallBack";
 
@@ -28,7 +28,7 @@ public abstract class BaseCallBack<T> implements Callback {
     private Type beanType;
     private Handler handler;
 
-    public BaseCallBack(Activity activity) {
+    public RequstBack(Activity activity) {
         this.activity = activity;
 
         Type genericSuperclass = this.getClass().getGenericSuperclass();
