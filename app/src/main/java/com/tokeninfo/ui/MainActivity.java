@@ -82,6 +82,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
             @Override
             public void token(String token) {
                 AppInfo.getAppInfo().setPushToken(token);
+                presenter.pushToken(token);
             }
         });
 
@@ -114,7 +115,8 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
                 String symbol = editSymbol.getText().toString();
                 String price = editPrice.getText().toString();
 
-                if (RegexpUtil.matches(RegexpUtil.Rule_Float, price)) {
+                if (RegexpUtil.matches(RegexpUtil.Rule_Int, price) ||
+                        RegexpUtil.matches(RegexpUtil.Rule_Float, price)) {
                     presenter.uploadTarget(plat, symbol, price);
                 } else {
                     ToastUtil.show(activity, "输入的价格格式不对");

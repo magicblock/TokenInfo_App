@@ -15,6 +15,8 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
 
+        void pushToken(String token);
+
         void uploadTarget(String plat,String symbol,String price);
 
         void refreshList();
