@@ -7,6 +7,8 @@
     <item name="txt_price" type="id" />
     <item name="txt_local" type="id" />
     <item name="txt_aliyun" type="id" />
+    <item name="txt_notice" type="id" />
+    <item name="txt_token" type="id" />
 
     <item name="edit_server" type="id" />
     <item name="edit_symbol" type="id" />
