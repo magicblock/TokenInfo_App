@@ -40,7 +40,7 @@ public class PermissionUtil {
     }
 
     /**
-     * Request permission
+     * permission
      *
      * @param activity
      * @param permissions

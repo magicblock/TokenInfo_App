@@ -9,6 +9,13 @@
     <item name="txt_aliyun" type="id" />
     <item name="txt_notice" type="id" />
     <item name="txt_token" type="id" />
+    <item name="txt_account" type="id" />
+    <item name="txt_time" type="id" />
+    <item name="txt_operation" type="id" />
+    <item name="txt_profit" type="id" />
+    <item name="txt_explain" type="id" />
+    <item name="txt_tips_account" type="id" />
+    <item name="txt_tips_record" type="id" />
 
     <item name="edit_server" type="id" />
     <item name="edit_symbol" type="id" />

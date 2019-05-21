@@ -1,7 +1,18 @@
 package com.tokeninfo.ui.presenter;
 
 import android.app.Activity;
+import com.tokeninfo.base.BaseResult;
+import com.tokeninfo.ui.bean.AccountBeean;
+import com.tokeninfo.ui.bean.RecordBean;
 import com.tokeninfo.ui.contract.MainContract;
+import com.tokeninfo.util.ToastUtil;
+import com.tokeninfo.util.okhttp.Callback.RequstBack;
+import com.tokeninfo.util.okhttp.OKRequest;
+import com.tokeninfo.util.okhttp.request.AccountRequest;
+import com.tokeninfo.util.okhttp.request.HwTokenRequest;
+import com.tokeninfo.util.okhttp.request.RecordsRequest;
+
+import java.util.List;
 
 public class MainPresenter implements MainContract.Presenter {
 
@@ -17,5 +28,78 @@ public class MainPresenter implements MainContract.Presenter {
     public void start() {
         bsView.init();
         activity = bsView.bsView();
+    }
+
+    @Override
+    public void deviceToken(String token) {
+        HwTokenRequest tokenRequest = new HwTokenRequest(token);
+        OKRequest.client().request(tokenRequest, new RequstBack<String>(activity) {
+
+            @Override
+            public void success(String o) {
+                ToastUtil.show(activity, "token 上传成功");
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+
+            }
+
+            @Override
+            public void netError() {
+
+            }
+        });
+    }
+
+    @Override
+    public void account(BaseResult<String> result) {
+        AccountRequest request = new AccountRequest();
+        OKRequest.client().request(request, new RequstBack<List<AccountBeean>>(activity) {
+
+            @Override
+            public void success(List<AccountBeean> beans) {
+                StringBuffer stringBuffer = new StringBuffer();
+                for (AccountBeean bean : beans) {
+                    stringBuffer.append(bean.getSymbol());
+                    stringBuffer.append("    " + bean.getTotal() + " ");
+                    stringBuffer.append("\n");
+                }
+
+                result.success(stringBuffer.toString());
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+
+            }
+
+            @Override
+            public void netError() {
+
+            }
+        });
+    }
+
+    @Override
+    public void records(BaseResult<List<RecordBean>> result) {
+        RecordsRequest request = new RecordsRequest();
+        OKRequest.client().request(request, new RequstBack<List<RecordBean>>(activity) {
+
+            @Override
+            public void success(List<RecordBean> recordBeans) {
+                result.success(recordBeans);
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+
+            }
+
+            @Override
+            public void netError() {
+
+            }
+        });
     }
 }

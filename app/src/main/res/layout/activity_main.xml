@@ -16,26 +16,38 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-            android:id="@id/txt_notice"
+            android:id="@id/txt_tips_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="[账户]"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/dp_14"
-            android:textSize="@dimen/dp_14"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:text="点击复制"
-            android:textColor="@color/color_blue"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-            android:id="@id/txt_token"
+            android:id="@id/txt_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/dp_12"
+            app:layout_constraintTop_toBottomOf="@id/txt_tips_account"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+            android:id="@id/txt_tips_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            android:textSize="@dimen/dp_12"
-            android:textColor="@color/color_black"
-            android:layout_marginLeft="@dimen/dp_12"
-            app:layout_constraintTop_toBottomOf="@id/txt_notice"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="[交易记录]"
+            app:layout_constraintTop_toBottomOf="@id/txt_account"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_tips_record"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
