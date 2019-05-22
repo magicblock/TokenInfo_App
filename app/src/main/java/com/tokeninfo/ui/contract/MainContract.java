@@ -18,6 +18,6 @@ public interface MainContract {
 
         void account(BaseResult<String> result);
 
-        void records(BaseResult<List<RecordBean>> result);
+        void records(int id,BaseResult<List<RecordBean>> result);
     }
 }

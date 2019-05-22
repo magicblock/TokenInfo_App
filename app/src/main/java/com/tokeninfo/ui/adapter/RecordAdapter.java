@@ -26,6 +26,19 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void appendData(List<RecordBean> records) {
+        this.recordBeanList.addAll(records);
+        notifyDataSetChanged();
+    }
+
+    public RecordBean lastData() {
+        RecordBean recordBean = null;
+        if (recordBeanList != null && recordBeanList.size() > 0) {
+            recordBean = recordBeanList.get(recordBeanList.size() - 1);
+        }
+        return recordBean;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,6 +55,14 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         holder.symbolTxt.setText(recordBean.getSymbol());
         holder.timeTxt.setText(recordBean.getCreateTime());
         holder.operationTxt.setText(recordBean.getOpetation() == 1 ? "[买入]" : "[卖出]");
+        if (recordBean.getOpetation() == 1) {
+            holder.operationTxt.setText("[买入]");
+            holder.operationTxt.setBackgroundColor(activity.getResources().getColor(R.color.color_blue));
+        } else {
+            holder.operationTxt.setText("[卖出]");
+            holder.operationTxt.setBackgroundColor(activity.getResources().getColor(R.color.color_red));
+        }
+
         holder.profitTxt.setText(recordBean.getTotal() + "");
         holder.explainTxt.setText(recordBean.getExplain());
     }

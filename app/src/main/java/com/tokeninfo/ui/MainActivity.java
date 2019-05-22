@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.PushCallback;
@@ -23,7 +24,7 @@ import com.tokeninfo.widget.ToolBar;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MainContract.BsView {
+public class MainActivity extends BaseActivity implements MainContract.BsView, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.toolbar)
     ToolBar toolbar;
@@ -31,6 +32,12 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
     TextView txtAccount;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
+    @BindView(R.id.txt_tips_account)
+    TextView txtTipsAccount;
+    @BindView(R.id.txt_tips_record)
+    TextView txtTipsRecord;
+    @BindView(R.id.swipefresh_layout)
+    SwipeRefreshLayout swipefreshLayout;
 
 
     private MainActivity activity;
@@ -56,25 +63,23 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
 
             @Override
             public void token(final String token) {
-                AppInfo.getAppInfo().setPushToken(token);
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.deviceToken(token);
-                    }
-                });
+                presenter.deviceToken(token);
             }
         });
 
+        // 下拉刷新
+        swipefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        swipefreshLayout.setOnRefreshListener(this);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         recyclerview.setLayoutManager(layoutManager);
-        recyclerview.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recordAdapter = new RecordAdapter(activity);
         recyclerview.setAdapter(recordAdapter);
 
         AppInfo.getAppInfo().setServer("47.244.139.127");
-//        AppInfo.getAppInfo().setServer("10.31.36.245");
+//        AppInfo.getAppInfo().setServer("192.168.40.75");
         if (!TextUtils.isEmpty(AppInfo.getAppInfo().getServer())) {
             presenter.account(new BaseResult<String>() {
                 @Override
@@ -88,7 +93,7 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
                 }
             });
 
-            presenter.records(new BaseResult<List<RecordBean>>() {
+            presenter.records(0, new BaseResult<List<RecordBean>>() {
                 @Override
                 public void success(List<RecordBean> recordBeans) {
                     recordAdapter.setData(recordBeans);
@@ -109,6 +114,29 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
 
     @Override
     public Activity bsView() {
-        return this;
+        return activity;
+    }
+
+    @Override
+    public void onRefresh() {
+        RecordBean recordBean = recordAdapter.lastData();
+        if (recordBean != null) {
+            int recordId = recordBean.getId();
+            presenter.records(recordId, new BaseResult<List<RecordBean>>() {
+                @Override
+                public void success(List<RecordBean> recordBeans) {
+                    if (recordBeans.size() > 0) {
+                        recordAdapter.appendData(recordBeans);
+                    }
+                }
+
+                @Override
+                public void fail(String string) {
+
+                }
+            });
+        }
+
+        swipefreshLayout.setRefreshing(false);
     }
 }

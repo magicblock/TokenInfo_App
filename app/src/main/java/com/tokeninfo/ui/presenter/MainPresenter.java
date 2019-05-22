@@ -27,7 +27,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void start() {
         bsView.init();
-        activity = bsView.bsView();
+        activity = (Activity) bsView;
     }
 
     @Override
@@ -82,8 +82,8 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void records(BaseResult<List<RecordBean>> result) {
-        RecordsRequest request = new RecordsRequest();
+    public void records(int id,BaseResult<List<RecordBean>> result) {
+        RecordsRequest request = new RecordsRequest(id);
         OKRequest.client().request(request, new RequstBack<List<RecordBean>>(activity) {
 
             @Override

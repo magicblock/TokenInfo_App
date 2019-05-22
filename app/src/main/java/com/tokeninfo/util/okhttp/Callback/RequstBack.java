@@ -104,11 +104,6 @@ public abstract class RequstBack<T> implements Callback {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String string = activity.getString(R.string.error_network_timeout);
-                if (e != null && TextUtils.isEmpty(e.getMessage())) {
-                    string = e.getMessage();
-                }
-
                 netError();
             }
         }, 500);
