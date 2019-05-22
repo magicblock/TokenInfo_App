@@ -10,29 +10,24 @@ public class AccountBeean {
      * Id : 1
      */
     private String Symbol;
-    private double Usd;
-    private double Total;
-    private int Token;
-    private int Id;
+    private float Usd;
+    private float Total;
+    private float Token;
 
     public void setSymbol(String Symbol) {
         this.Symbol = Symbol;
     }
 
-    public void setUsd(double Usd) {
+    public void setUsd(float Usd) {
         this.Usd = Usd;
     }
 
-    public void setTotal(double Total) {
+    public void setTotal(float Total) {
         this.Total = Total;
     }
 
     public void setToken(int Token) {
         this.Token = Token;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
     }
 
     public String getSymbol() {
@@ -47,11 +42,7 @@ public class AccountBeean {
         return Total;
     }
 
-    public int getToken() {
+    public float getToken() {
         return Token;
-    }
-
-    public int getId() {
-        return Id;
     }
 }

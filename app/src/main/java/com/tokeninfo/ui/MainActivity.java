@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.PushCallback;
 import com.PushSDK;
 import com.tokeninfo.R;
@@ -19,8 +18,6 @@ import com.tokeninfo.ui.adapter.RecordAdapter;
 import com.tokeninfo.ui.bean.RecordBean;
 import com.tokeninfo.ui.contract.MainContract;
 import com.tokeninfo.ui.presenter.MainPresenter;
-import com.tokeninfo.util.SystermUtil;
-import com.tokeninfo.util.ToastUtil;
 import com.tokeninfo.util.share.AppInfo;
 import com.tokeninfo.widget.ToolBar;
 
@@ -76,8 +73,8 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         recordAdapter = new RecordAdapter(activity);
         recyclerview.setAdapter(recordAdapter);
 
-        //AppInfo.getAppInfo().setServer("47.244.139.127");10.31.36.245
-        AppInfo.getAppInfo().setServer("10.31.36.245");
+        AppInfo.getAppInfo().setServer("47.244.139.127");
+//        AppInfo.getAppInfo().setServer("10.31.36.245");
         if (!TextUtils.isEmpty(AppInfo.getAppInfo().getServer())) {
             presenter.account(new BaseResult<String>() {
                 @Override

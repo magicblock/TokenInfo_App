@@ -11,6 +11,7 @@ public class RecordBean {
      * CreateTime : 2019-05-21T01:45:52+08:00
      * Id : 1
      */
+    private int Id;
     private int Opetation;
     private float Price;
     private String Symbol;
@@ -64,5 +65,13 @@ public class RecordBean {
 
     public String getCreateTime() {
         return CreateTime;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 }
