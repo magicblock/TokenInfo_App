@@ -2,23 +2,15 @@ package com.tokeninfo.util.okhttp.Callback;
 
 import android.app.Activity;
 import android.os.Handler;
-import android.text.TextUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-import com.tokeninfo.R;
+import com.google.gson.*;
 import com.tokeninfo.util.log.LogUtil;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public abstract class RequstBack<T> implements Callback {
 

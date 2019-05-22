@@ -1,15 +1,12 @@
 package com.tokeninfo.util.okhttp;
 
 import android.os.Handler;
-import android.os.Looper;
-
 import com.tokeninfo.util.okhttp.Callback.RequstBack;
 import com.tokeninfo.util.okhttp.request.BaseRequest;
-
-import java.util.concurrent.TimeUnit;
-
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
+
+import java.util.concurrent.TimeUnit;
 
 public class OKRequest {
 
@@ -27,7 +24,7 @@ public class OKRequest {
     }
 
     public OKRequest() {
-        handler = new Handler(Looper.myLooper());
+        handler = new Handler();
         httpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
