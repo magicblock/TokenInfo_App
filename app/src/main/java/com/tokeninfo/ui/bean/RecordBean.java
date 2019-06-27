@@ -12,7 +12,7 @@ public class RecordBean {
      * Id : 1
      */
     private int Id;
-    private int Opetation;
+    private int Operation;
     private float Price;
     private String Symbol;
     private float Total;
@@ -20,7 +20,7 @@ public class RecordBean {
     private String CreateTime;
 
     public void setOpetation(int Opetation) {
-        this.Opetation = Opetation;
+        this.Operation = Opetation;
     }
 
     public void setPrice(int Price) {
@@ -43,8 +43,8 @@ public class RecordBean {
         this.CreateTime = CreateTime;
     }
 
-    public int getOpetation() {
-        return Opetation;
+    public int getOperation() {
+        return Operation;
     }
 
     public float getPrice() {

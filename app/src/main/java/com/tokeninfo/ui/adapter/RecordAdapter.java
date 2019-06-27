@@ -54,8 +54,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
         holder.symbolTxt.setText(recordBean.getSymbol());
         holder.timeTxt.setText(recordBean.getCreateTime());
-        holder.operationTxt.setText(recordBean.getOpetation() == 1 ? "[买入]" : "[卖出]");
-        if (recordBean.getOpetation() == 1) {
+        holder.operationTxt.setText(recordBean.getOperation() == 1 ? "[买入]" : "[卖出]");
+        if (recordBean.getOperation() == 1) {
             holder.operationTxt.setText("[买入]");
             holder.operationTxt.setBackgroundColor(activity.getResources().getColor(R.color.color_blue));
         } else {

@@ -34,11 +34,11 @@ public class AccountBeean {
         return Symbol;
     }
 
-    public double getUsd() {
+    public float getUsd() {
         return Usd;
     }
 
-    public double getTotal() {
+    public float getTotal() {
         return Total;
     }
 

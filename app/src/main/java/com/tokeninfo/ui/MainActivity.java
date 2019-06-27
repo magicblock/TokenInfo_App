@@ -80,31 +80,34 @@ public class MainActivity extends BaseActivity implements MainContract.BsView, S
 
         AppInfo.getAppInfo().setServer("47.244.139.127");
 //        AppInfo.getAppInfo().setServer("192.168.40.75");
-        if (!TextUtils.isEmpty(AppInfo.getAppInfo().getServer())) {
-            presenter.account(new BaseResult<String>() {
-                @Override
-                public void success(String s) {
-                    txtAccount.setText(s);
-                }
+    }
 
-                @Override
-                public void fail(String string) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.account(new BaseResult<String>() {
+            @Override
+            public void success(String s) {
+                txtAccount.setText(s);
+            }
 
-                }
-            });
+            @Override
+            public void fail(String string) {
 
-            presenter.records(0, new BaseResult<List<RecordBean>>() {
-                @Override
-                public void success(List<RecordBean> recordBeans) {
-                    recordAdapter.setData(recordBeans);
-                }
+            }
+        });
 
-                @Override
-                public void fail(String string) {
+        presenter.records(0, new BaseResult<List<RecordBean>>() {
+            @Override
+            public void success(List<RecordBean> recordBeans) {
+                recordAdapter.setData(recordBeans);
+            }
 
-                }
-            });
-        }
+            @Override
+            public void fail(String string) {
+
+            }
+        });
     }
 
     @Override

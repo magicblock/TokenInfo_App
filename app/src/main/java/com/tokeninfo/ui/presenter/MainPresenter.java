@@ -62,7 +62,15 @@ public class MainPresenter implements MainContract.Presenter {
                 StringBuffer stringBuffer = new StringBuffer();
                 for (AccountBeean bean : beans) {
                     stringBuffer.append(bean.getSymbol());
-                    stringBuffer.append("    " + bean.getTotal() + " ");
+                    stringBuffer.append("[总额]" + bean.getTotal());
+
+                    if (bean.getUsd() > 0) {
+                        stringBuffer.append("  [USD]" + String.format("%6.2f",bean.getUsd()));
+                    }
+                    if (bean.getToken() > 0) {
+                        stringBuffer.append("  [Token]" + String.format("%3.6f",bean.getToken()));
+                    }
+
                     stringBuffer.append("\n");
                 }
 
@@ -82,7 +90,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void records(int id,BaseResult<List<RecordBean>> result) {
+    public void records(int id, BaseResult<List<RecordBean>> result) {
         RecordsRequest request = new RecordsRequest(id);
         OKRequest.client().request(request, new RequstBack<List<RecordBean>>(activity) {
 

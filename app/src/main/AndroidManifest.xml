@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
@@ -42,5 +43,10 @@
         <meta-data
                 android:name="BUGLY_APPID"
                 android:value="32a287ebde" />
+
+        <activity
+                android:name="com.tencent.bugly.beta.ui.BetaActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize|locale"
+                android:theme="@android:style/Theme.Translucent" />
     </application>
 </manifest>
