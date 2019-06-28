@@ -1,49 +1,41 @@
 package com.tokeninfo.ui;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.widget.FrameLayout;
 import android.widget.TextView;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.PushCallback;
 import com.PushSDK;
 import com.tokeninfo.R;
-import com.tokeninfo.base.BaseActivity;
-import com.tokeninfo.base.BaseResult;
-import com.tokeninfo.ui.adapter.RecordAdapter;
-import com.tokeninfo.ui.bean.RecordBean;
 import com.tokeninfo.ui.contract.MainContract;
+import com.tokeninfo.ui.fragment.MarginFragment;
+import com.tokeninfo.ui.fragment.SpotFragment;
 import com.tokeninfo.ui.presenter.MainPresenter;
 import com.tokeninfo.util.share.AppInfo;
-import com.tokeninfo.widget.ToolBar;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MainContract.BsView, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity implements MainContract.BsView {
 
-    @BindView(R.id.toolbar)
-    ToolBar toolbar;
-    @BindView(R.id.txt_account)
-    TextView txtAccount;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
-    @BindView(R.id.txt_tips_account)
-    TextView txtTipsAccount;
-    @BindView(R.id.txt_tips_record)
-    TextView txtTipsRecord;
-    @BindView(R.id.swipefresh_layout)
-    SwipeRefreshLayout swipefreshLayout;
+    @BindView(R.id.txt_spot)
+    TextView txtSpot;
+    @BindView(R.id.txt_margin)
+    TextView txtMargin;
+    @BindView(R.id.framelayout)
+    FrameLayout framelayout;
 
+    MainActivity activity;
+    MainContract.Presenter presenter;
 
-    private MainActivity activity;
-    private MainContract.Presenter presenter;
-
-    private RecordAdapter recordAdapter;
+    SpotFragment spotFragment;
+    MarginFragment marginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +43,16 @@ public class MainActivity extends BaseActivity implements MainContract.BsView, S
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         new MainPresenter(this).start();
     }
 
     @Override
     public void init() {
         activity = this;
-        toolbar.setTitle("Home");
 
         PushSDK.getPushSDK().connnect(activity, new PushCallback() {
 
@@ -67,79 +62,58 @@ public class MainActivity extends BaseActivity implements MainContract.BsView, S
             }
         });
 
-        // 下拉刷新
-        swipefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
-                android.R.color.holo_orange_light, android.R.color.holo_red_light);
-        swipefreshLayout.setOnRefreshListener(this);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
-        recyclerview.setLayoutManager(layoutManager);
-        recyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        recordAdapter = new RecordAdapter(activity);
-        recyclerview.setAdapter(recordAdapter);
+        spotFragment = SpotFragment.fragment();
+        marginFragment = MarginFragment.fragment();
+        fragment(0);
 
         AppInfo.getAppInfo().setServer("47.244.139.127");
-//        AppInfo.getAppInfo().setServer("192.168.40.75");
+        // AppInfo.getAppInfo().setServer("192.168.40.75");
+    }
+
+    @OnClick(R.id.txt_spot)
+    void spot() {
+        fragment(0);
+    }
+
+    @OnClick(R.id.txt_margin)
+    void margin() {
+        fragment(1);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.account(new BaseResult<String>() {
-            @Override
-            public void success(String s) {
-                txtAccount.setText(s);
+    public void fragment(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // TODO: 2018/5/8 这个还是得换下
+        @SuppressLint("RestrictedApi") List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment.isVisible()) {
+                    fragmentTransaction.hide(fragment);
+                }
             }
+        }
 
-            @Override
-            public void fail(String string) {
-
+        if (position == 0) {
+            if (!spotFragment.isAdded()) {
+                fragmentTransaction.add(R.id.framelayout, spotFragment);
+            } else {
+                fragmentTransaction.show(spotFragment);
             }
-        });
-
-        presenter.records(0, new BaseResult<List<RecordBean>>() {
-            @Override
-            public void success(List<RecordBean> recordBeans) {
-                recordAdapter.setData(recordBeans);
+        } else if (position == 1) {
+            if (!marginFragment.isAdded()) {
+                fragmentTransaction.add(R.id.framelayout, marginFragment);
+            } else {
+                fragmentTransaction.show(marginFragment);
             }
+        }
 
-            @Override
-            public void fail(String string) {
-
-            }
-        });
+        //commit :IllegalStateException: Can not perform this action after onSaveInstanceState
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         this.presenter = presenter;
-    }
-
-    @Override
-    public Activity bsView() {
-        return activity;
-    }
-
-    @Override
-    public void onRefresh() {
-        RecordBean recordBean = recordAdapter.lastData();
-        if (recordBean != null) {
-            int recordId = recordBean.getId();
-            presenter.records(recordId, new BaseResult<List<RecordBean>>() {
-                @Override
-                public void success(List<RecordBean> recordBeans) {
-                    if (recordBeans.size() > 0) {
-                        recordAdapter.appendData(recordBeans);
-                    }
-                }
-
-                @Override
-                public void fail(String string) {
-
-                }
-            });
-        }
-
-        swipefreshLayout.setRefreshing(false);
     }
 }

@@ -1,8 +1,6 @@
 package com.tokeninfo.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,10 +60,5 @@ public class HostActivity extends BaseActivity implements HostContract.BsView {
     @Override
     public void setPresenter(HostContract.Presenter presenter) {
 
-    }
-
-    @Override
-    public Activity bsView() {
-        return null;
     }
 }

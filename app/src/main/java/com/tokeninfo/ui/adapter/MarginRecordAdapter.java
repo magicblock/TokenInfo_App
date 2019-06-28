@@ -12,7 +12,7 @@ import com.tokeninfo.ui.bean.RecordBean;
 
 import java.util.List;
 
-public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
+public class MarginRecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
 
     private Context context;
     private List<RecordBean> recordBeanList;
@@ -37,25 +37,28 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecordAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_record, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        RecordAdapter.ViewHolder holder = new RecordAdapter.ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecordAdapter.ViewHolder holder, int position) {
         RecordBean recordBean = recordBeanList.get(position);
 
         holder.symbolTxt.setText(recordBean.getSymbol());
         holder.timeTxt.setText(recordBean.getCreateTime());
         if (recordBean.getOperation() == 1) {
-            holder.operationTxt.setText("[买入]");
+            holder.operationTxt.setText("[开多]");
+            holder.operationTxt.setBackgroundColor(context.getResources().getColor(R.color.color_blue));
+        } else if (recordBean.getOperation() == 2) {
+            holder.operationTxt.setText("[开空]");
             holder.operationTxt.setBackgroundColor(context.getResources().getColor(R.color.color_blue));
         } else {
-            holder.operationTxt.setText("[卖出]");
+            holder.operationTxt.setText("[平仓]");
             holder.operationTxt.setBackgroundColor(context.getResources().getColor(R.color.color_red));
         }
 
