@@ -3,6 +3,7 @@ package com.tokeninfo.ui.presenter;
 import android.app.Activity;
 import com.tokeninfo.base.BaseResult;
 import com.tokeninfo.ui.bean.AccountBeean;
+import com.tokeninfo.ui.bean.MarginAccountBean;
 import com.tokeninfo.ui.bean.RecordBean;
 import com.tokeninfo.ui.contract.MarginContract;
 import com.tokeninfo.util.okhttp.Callback.RequstBack;
@@ -29,20 +30,20 @@ public class MarginPresenter implements MarginContract.Presenter {
     @Override
     public void account(Activity activity, BaseResult<String> result) {
         MarginAccountRequest request = new MarginAccountRequest();
-        OKRequest.client().request(request, new RequstBack<List<AccountBeean>>(activity) {
+        OKRequest.client().request(request, new RequstBack<List<MarginAccountBean>>(activity) {
 
             @Override
-            public void success(List<AccountBeean> beans) {
+            public void success(List<MarginAccountBean> beans) {
                 StringBuffer stringBuffer = new StringBuffer();
-                for (AccountBeean bean : beans) {
+                for (MarginAccountBean bean : beans) {
                     stringBuffer.append(bean.getSymbol());
                     stringBuffer.append("[总额]" + bean.getTotal());
 
-                    if (bean.getUsd() > 0) {
-                        stringBuffer.append("  [USD]" + String.format("%6.2f", bean.getUsd()));
+                    if (bean.getUsed() > 0) {
+                        stringBuffer.append("  [Used]" + String.format("%6.2f", bean.getUsed()));
                     }
-                    if (bean.getToken() > 0) {
-                        stringBuffer.append("  [Token]" + String.format("%3.6f", bean.getToken()));
+                    if (bean.getBalance() > 0) {
+                        stringBuffer.append("  [Balance]" + String.format("%3.6f", bean.getBalance()));
                     }
 
                     stringBuffer.append("\n");

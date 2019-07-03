@@ -10,7 +10,7 @@
             android:id="@id/layout_home_bottom"
             layout="@layout/layout_home_bottom"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_32"
+            android:layout_height="@dimen/dp_42"
             android:layout_alignParentBottom="true"/>
 
     <FrameLayout
