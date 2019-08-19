@@ -7,6 +7,19 @@
     <item name="txt_price" type="id" />
     <item name="txt_local" type="id" />
     <item name="txt_aliyun" type="id" />
+    <item name="txt_notice" type="id" />
+    <item name="txt_token" type="id" />
+    <item name="txt_account" type="id" />
+    <item name="txt_time" type="id" />
+    <item name="txt_operation" type="id" />
+    <item name="txt_profit" type="id" />
+    <item name="txt_explain" type="id" />
+    <item name="txt_tips_account" type="id" />
+    <item name="txt_tips_record" type="id" />
+    <item name="txt_spot" type="id" />
+    <item name="txt_margin" type="id" />
+    <item name="txt_name" type="id" />
+
 
     <item name="edit_server" type="id" />
     <item name="edit_symbol" type="id" />
@@ -19,10 +32,15 @@
     <item name="btn_okex" type="id" />
     <item name="btn_binance" type="id" />
 
+    <item name="swipefresh_layout" type="id" />
     <item name="recyclerview" type="id" />
 
     <item name="toolbar" type="id" />
 
     <item name="radiogroup" type="id" />
+
+
+    <item name="framelayout" type="id" />
+    <item name="layout_home_bottom" type="id" />
 
 </resources>

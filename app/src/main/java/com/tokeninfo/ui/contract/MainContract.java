@@ -2,19 +2,17 @@ package com.tokeninfo.ui.contract;
 
 import com.tokeninfo.base.BasePresenter;
 import com.tokeninfo.base.BaseView;
-import com.tokeninfo.ui.bean.TargetBean;
-
-import java.util.List;
 
 public interface MainContract {
 
     interface BsView extends BaseView<Presenter> {
 
-        void showTargets(List<TargetBean> targetBeans);
+        void fragment(int position);
     }
 
     interface Presenter extends BasePresenter {
 
+<<<<<<< HEAD
         void pushToken(String token);
 
         void uploadTarget(String plat,String symbol,String price);
@@ -22,5 +20,8 @@ public interface MainContract {
         void refreshList();
 
         void remove(String plat,String symbol,String pricce);
+=======
+        void deviceToken(String token);
+>>>>>>> develop
     }
 }

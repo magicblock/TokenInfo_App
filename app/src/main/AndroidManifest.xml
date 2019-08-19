@@ -9,12 +9,16 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
         android:name=".base.BaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/name_tokeninfo"
+        android:networkSecurityConfig="@xml/network"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -32,8 +36,17 @@
             android:screenOrientation="portrait" />
 
         <activity
-                android:name=".ui.SetActivity"
+                android:name=".ui.HostActivity"
                 android:launchMode="singleTask"
                 android:screenOrientation="portrait" />
+
+        <meta-data
+                android:name="BUGLY_APPID"
+                android:value="32a287ebde" />
+
+        <activity
+                android:name="com.tencent.bugly.beta.ui.BetaActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize|locale"
+                android:theme="@android:style/Theme.Translucent" />
     </application>
 </manifest>

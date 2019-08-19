@@ -1,79 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" tools:context="com.tokeninfo.ui.MainActivity">
+        android:layout_height="match_parent"
+        tools:context="com.tokeninfo.ui.MainActivity">
 
-    <com.tokeninfo.widget.ToolBar
-            android:id="@id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="@dimen/dp_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_height="wrap_content"/>
-
-    <RadioGroup
-            android:id="@id/radiogroup"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        <RadioButton
-                android:id="@id/btn_okex"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="OK"/>
-
-        <RadioButton
-                android:id="@id/btn_binance"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="币安"/>
-    </RadioGroup>
-
-
-    <EditText
-            android:id="@id/edit_symbol"
-            android:layout_width="@dimen/dp_100"
-            android:text="btc"
-            app:layout_constraintTop_toBottomOf="@id/radiogroup"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <EditText
-            android:id="@id/edit_price"
-            android:layout_width="@dimen/dp_100"
-            android:text="4000"
-            android:inputType="numberDecimal"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edit_symbol"/>
-
-    <Button
-            android:id="@id/btn_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload"
-            app:layout_constraintTop_toBottomOf="@id/edit_symbol"/>
-
-    <Button
-            android:id="@id/btn_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/refresh"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_symbol"/>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-            app:layout_constraintTop_toBottomOf="@id/btn_refresh"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@id/recyclerview"
+    <include
+            android:id="@id/layout_home_bottom"
+            layout="@layout/layout_home_bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="@dimen/dp_42"
+            android:layout_alignParentBottom="true"/>
+
+    <FrameLayout
+            android:id="@id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/layout_home_bottom"
+            android:layout_marginBottom="@dimen/dp_12"/>
+</RelativeLayout>

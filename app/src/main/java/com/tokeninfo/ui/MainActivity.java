@@ -1,58 +1,39 @@
 package com.tokeninfo.ui;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.PushCallback;
 import com.PushSDK;
 import com.tokeninfo.R;
-import com.tokeninfo.base.BaseActivity;
-import com.tokeninfo.ui.adapter.TargetAdapter;
-import com.tokeninfo.ui.bean.TargetBean;
 import com.tokeninfo.ui.contract.MainContract;
+import com.tokeninfo.ui.fragment.MarginFragment;
 import com.tokeninfo.ui.presenter.MainPresenter;
-import com.tokeninfo.util.RegexpUtil;
-import com.tokeninfo.util.ToastUtil;
 import com.tokeninfo.util.share.AppInfo;
-import com.tokeninfo.widget.ToolBar;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MainContract.BsView {
+public class MainActivity extends AppCompatActivity implements MainContract.BsView {
 
-    @BindView(R.id.toolbar)
-    ToolBar toolbar;
-    @BindView(R.id.edit_symbol)
-    EditText editSymbol;
-    @BindView(R.id.edit_price)
-    EditText editPrice;
-    @BindView(R.id.btn_upload)
-    Button btnUpload;
-    @BindView(R.id.btn_refresh)
-    Button btnRefresh;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
-    @BindView(R.id.btn_okex)
-    RadioButton btnOkex;
-    @BindView(R.id.btn_binance)
-    RadioButton btnBinance;
-    @BindView(R.id.radiogroup)
-    RadioGroup radiogroup;
+    @BindView(R.id.txt_spot)
+    TextView txtSpot;
+    @BindView(R.id.txt_margin)
+    TextView txtMargin;
+    @BindView(R.id.framelayout)
+    FrameLayout framelayout;
 
-    private MainActivity activity;
-    private MainContract.Presenter presenter;
+    MainActivity activity;
+    MainContract.Presenter presenter;
 
-    private TargetAdapter targetAdapter;
+    MarginFragment marginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,53 +41,49 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         new MainPresenter(this).start();
     }
 
     @Override
     public void init() {
         activity = this;
-        toolbar.setTitle("Home");
-        toolbar.setExt("设置");
-        toolbar.setExtListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(activity, SetActivity.class);
-                activity.startActivity(intent);
-            }
-        });
 
         PushSDK.getPushSDK().connnect(activity, new PushCallback() {
 
             @Override
+<<<<<<< HEAD
             public void token(String token) {
                 AppInfo.getAppInfo().setPushToken(token);
                 presenter.pushToken(token);
+=======
+            public void token(final String token) {
+                presenter.deviceToken(token);
+>>>>>>> develop
             }
         });
 
-        LinearLayoutManager manager = new LinearLayoutManager(activity);
-        recyclerview.setLayoutManager(manager);
-        targetAdapter = new TargetAdapter();
-        recyclerview.setAdapter(targetAdapter);
-        targetAdapter.setCallBack(new TargetAdapter.CallBack() {
+        marginFragment = MarginFragment.fragment();
+        fragment(0);
 
-            @Override
-            public void remove(TargetBean bean) {
-                presenter.remove(bean.getPlat(), bean.getSymbol(), String.valueOf(bean.getPrice()));
-            }
-        });
-
-        // 默认选中
-        btnOkex.setChecked(true);
+        AppInfo.getAppInfo().setServer("47.244.139.127");
+        // AppInfo.getAppInfo().setServer("192.168.40.75");
     }
 
-    @Override
-    public void showTargets(List<TargetBean> targetBeans) {
-        targetAdapter.setBeanList(targetBeans);
+    @OnClick(R.id.txt_spot)
+    void spot() {
+        fragment(0);
     }
 
+    @OnClick(R.id.txt_margin)
+    void margin() {
+        fragment(1);
+    }
+
+<<<<<<< HEAD
     @OnClick({R.id.btn_refresh, R.id.btn_upload})
     void OnClick(View view) {
         switch (view.getId()) {
@@ -120,21 +97,36 @@ public class MainActivity extends BaseActivity implements MainContract.BsView {
                     presenter.uploadTarget(plat, symbol, price);
                 } else {
                     ToastUtil.show(activity, "输入的价格格式不对");
+=======
+    @Override
+    public void fragment(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // TODO: 2018/5/8 这个还是得换下
+        @SuppressLint("RestrictedApi") List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment.isVisible()) {
+                    fragmentTransaction.hide(fragment);
+>>>>>>> develop
                 }
-                break;
-            case R.id.btn_refresh:
-                presenter.refreshList();
-                break;
+            }
         }
+
+        if (position == 0) {
+            if (!marginFragment.isAdded()) {
+                fragmentTransaction.add(R.id.framelayout, marginFragment);
+            } else {
+                fragmentTransaction.show(marginFragment);
+            }
+        }
+
+        //commit :IllegalStateException: Can not perform this action after onSaveInstanceState
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         this.presenter = presenter;
-    }
-
-    @Override
-    public Activity bsView() {
-        return this;
     }
 }
