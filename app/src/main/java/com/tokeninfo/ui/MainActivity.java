@@ -16,7 +16,6 @@ import com.PushSDK;
 import com.tokeninfo.R;
 import com.tokeninfo.ui.contract.MainContract;
 import com.tokeninfo.ui.fragment.MarginFragment;
-import com.tokeninfo.ui.fragment.SpotFragment;
 import com.tokeninfo.ui.presenter.MainPresenter;
 import com.tokeninfo.util.share.AppInfo;
 
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.BsVi
     MainActivity activity;
     MainContract.Presenter presenter;
 
-    SpotFragment spotFragment;
     MarginFragment marginFragment;
 
     @Override
@@ -62,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.BsVi
             }
         });
 
-        spotFragment = SpotFragment.fragment();
         marginFragment = MarginFragment.fragment();
         fragment(0);
 
@@ -95,12 +92,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.BsVi
         }
 
         if (position == 0) {
-            if (!spotFragment.isAdded()) {
-                fragmentTransaction.add(R.id.framelayout, spotFragment);
-            } else {
-                fragmentTransaction.show(spotFragment);
-            }
-        } else if (position == 1) {
             if (!marginFragment.isAdded()) {
                 fragmentTransaction.add(R.id.framelayout, marginFragment);
             } else {

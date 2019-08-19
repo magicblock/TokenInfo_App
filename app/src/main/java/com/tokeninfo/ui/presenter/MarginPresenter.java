@@ -39,11 +39,11 @@ public class MarginPresenter implements MarginContract.Presenter {
                     stringBuffer.append(bean.getSymbol());
                     stringBuffer.append("[总额]" + bean.getTotal());
 
-                    if (bean.getUsed() > 0) {
-                        stringBuffer.append("  [Used]" + String.format("%6.2f", bean.getUsed()));
+                    if (bean.getBuy() > 0) {
+                        stringBuffer.append("  [开单]" + String.format("%6.2f", bean.getBuy()));
                     }
                     if (bean.getBalance() > 0) {
-                        stringBuffer.append("  [Balance]" + String.format("%3.6f", bean.getBalance()));
+                        stringBuffer.append("  [现金]" + String.format("%3.6f", bean.getBalance()));
                     }
 
                     stringBuffer.append("\n");

@@ -9,18 +9,14 @@ public class MarginAccountBean {
      * Id : 1
      * Balance : 1000
      */
-    private float Used;
+    private float Buy;
     private String Symbol;
     private float Total;
     private int Id;
     private float Balance;
 
-    public float getUsed() {
-        return Used;
-    }
-
-    public void setUsed(float used) {
-        Used = used;
+    public float getBuy() {
+        return Buy;
     }
 
     public String getSymbol() {
