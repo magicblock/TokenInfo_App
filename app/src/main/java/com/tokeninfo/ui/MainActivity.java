@@ -55,14 +55,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.BsVi
         PushSDK.getPushSDK().connnect(activity, new PushCallback() {
 
             @Override
-<<<<<<< HEAD
-            public void token(String token) {
-                AppInfo.getAppInfo().setPushToken(token);
-                presenter.pushToken(token);
-=======
             public void token(final String token) {
                 presenter.deviceToken(token);
->>>>>>> develop
             }
         });
 
@@ -83,21 +77,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.BsVi
         fragment(1);
     }
 
-<<<<<<< HEAD
-    @OnClick({R.id.btn_refresh, R.id.btn_upload})
-    void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_upload:
-                String plat = btnOkex.isChecked() ? "okex" : "binance";
-                String symbol = editSymbol.getText().toString();
-                String price = editPrice.getText().toString();
-
-                if (RegexpUtil.matches(RegexpUtil.Rule_Int, price) ||
-                        RegexpUtil.matches(RegexpUtil.Rule_Float, price)) {
-                    presenter.uploadTarget(plat, symbol, price);
-                } else {
-                    ToastUtil.show(activity, "输入的价格格式不对");
-=======
     @Override
     public void fragment(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -108,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.BsVi
             for (Fragment fragment : fragments) {
                 if (fragment.isVisible()) {
                     fragmentTransaction.hide(fragment);
->>>>>>> develop
                 }
             }
         }
