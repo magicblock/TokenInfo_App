@@ -3,13 +3,14 @@ package com.tokeninfo.ui.presenter;
 import android.app.Activity;
 import com.tokeninfo.base.BaseResult;
 import com.tokeninfo.ui.bean.AccountBeean;
-import com.tokeninfo.ui.bean.MarginAccountBean;
+import com.tokeninfo.ui.bean.ChannelBean;
 import com.tokeninfo.ui.bean.RecordBean;
 import com.tokeninfo.ui.contract.MarginContract;
 import com.tokeninfo.util.okhttp.Callback.RequstBack;
 import com.tokeninfo.util.okhttp.OKRequest;
-import com.tokeninfo.util.okhttp.request.MarginAccountRequest;
-import com.tokeninfo.util.okhttp.request.MarginRecordsRequest;
+import com.tokeninfo.util.okhttp.request.AccountRequest;
+import com.tokeninfo.util.okhttp.request.ChannelRequest;
+import com.tokeninfo.util.okhttp.request.RecordsRequest;
 
 import java.util.List;
 
@@ -28,28 +29,35 @@ public class MarginPresenter implements MarginContract.Presenter {
     }
 
     @Override
-    public void account(Activity activity, BaseResult<String> result) {
-        MarginAccountRequest request = new MarginAccountRequest();
-        OKRequest.client().request(request, new RequstBack<List<MarginAccountBean>>(activity) {
+    public void account(Activity activity, BaseResult<List<AccountBeean>> result) {
+        AccountRequest request = new AccountRequest();
+        OKRequest.client().request(request, new RequstBack<List<AccountBeean>>(activity) {
 
             @Override
-            public void success(List<MarginAccountBean> beans) {
-                StringBuffer stringBuffer = new StringBuffer();
-                for (MarginAccountBean bean : beans) {
-                    stringBuffer.append(bean.getSymbol());
-                    stringBuffer.append("[总额]" + bean.getTotal());
+            public void success(List<AccountBeean> beans) {
+                result.success(beans);
+            }
 
-                    if (bean.getBuy() > 0) {
-                        stringBuffer.append("  [开单]" + String.format("%6.2f", bean.getBuy()));
-                    }
-                    if (bean.getBalance() > 0) {
-                        stringBuffer.append("  [现金]" + String.format("%3.6f", bean.getBalance()));
-                    }
+            @Override
+            public void serverError(int code, String err) {
 
-                    stringBuffer.append("\n");
-                }
+            }
 
-                result.success(stringBuffer.toString());
+            @Override
+            public void netError() {
+
+            }
+        });
+    }
+
+    @Override
+    public void channel(Activity activity, BaseResult<List<ChannelBean>> result) {
+        ChannelRequest request = new ChannelRequest();
+        OKRequest.client().request(request, new RequstBack<List<ChannelBean>>(activity) {
+
+            @Override
+            public void success(List<ChannelBean> beans) {
+                result.success(beans);
             }
 
             @Override
@@ -66,7 +74,7 @@ public class MarginPresenter implements MarginContract.Presenter {
 
     @Override
     public void records(Activity activity, int id, BaseResult<List<RecordBean>> result) {
-        MarginRecordsRequest request = new MarginRecordsRequest(id);
+        RecordsRequest request = new RecordsRequest(id);
         OKRequest.client().request(request, new RequstBack<List<RecordBean>>(activity) {
 
             @Override

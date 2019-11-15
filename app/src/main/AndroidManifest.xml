@@ -35,11 +35,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-        <activity
-                android:name=".ui.HostActivity"
-                android:launchMode="singleTask"
-                android:screenOrientation="portrait" />
-
         <meta-data
                 android:name="BUGLY_APPID"
                 android:value="32a287ebde" />

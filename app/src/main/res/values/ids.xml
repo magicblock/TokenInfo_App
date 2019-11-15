@@ -19,6 +19,13 @@
     <item name="txt_spot" type="id" />
     <item name="txt_margin" type="id" />
     <item name="txt_name" type="id" />
+    <item name="txt_used" type="id" />
+    <item name="txt_short" type="id" />
+    <item name="txt_profit_rate" type="id" />
+    <item name="txt_long" type="id" />
+    <item name="txt_add" type="id" />
+    <item name="txt_stop" type="id" />
+    <item name="txt_amount" type="id" />
 
 
     <item name="edit_server" type="id" />
@@ -33,7 +40,9 @@
     <item name="btn_binance" type="id" />
 
     <item name="swipefresh_layout" type="id" />
-    <item name="recyclerview" type="id" />
+    <item name="recyclerview_account" type="id" />
+    <item name="recyclerview_channel" type="id" />
+    <item name="recyclerview_record" type="id" />
 
     <item name="toolbar" type="id" />
 

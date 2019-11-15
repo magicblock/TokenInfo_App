@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.BsVi
         marginFragment = MarginFragment.fragment();
         fragment(0);
 
-        AppInfo.getAppInfo().setServer("47.244.139.127");
-        // AppInfo.getAppInfo().setServer("192.168.40.75");
+        AppInfo.getAppInfo().setServer("119.28.32.165");
     }
 
     @OnClick(R.id.txt_spot)

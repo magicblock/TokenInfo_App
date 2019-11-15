@@ -1,9 +1,9 @@
 package com.tokeninfo.util.okhttp.request;
 
-public class MarginAccountRequest extends GetRequest {
+public class ChannelRequest extends GetRequest {
 
     @Override
     public String requstUri() {
-        return "/v1/margin/account";
+        return "/v1/margin/channel";
     }
 }

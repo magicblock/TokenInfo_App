@@ -2,47 +2,47 @@ package com.tokeninfo.ui.bean;
 
 public class AccountBeean {
 
+
     /**
      * Symbol : btc
-     * Usd : 984.828
-     * Total : 984.828
-     * Token : 0
-     * Id : 1
+     * Rate : 0
+     * Total : 0.1
+     * Buy : 0.0019999999
      */
     private String Symbol;
-    private float Usd;
+    private float Rate;
     private float Total;
-    private float Token;
+    private float Buy;
 
     public void setSymbol(String Symbol) {
         this.Symbol = Symbol;
     }
 
-    public void setUsd(float Usd) {
-        this.Usd = Usd;
+    public void setRate(int Rate) {
+        this.Rate = Rate;
     }
 
     public void setTotal(float Total) {
         this.Total = Total;
     }
 
-    public void setToken(int Token) {
-        this.Token = Token;
+    public void setBuy(float Buy) {
+        this.Buy = Buy;
     }
 
     public String getSymbol() {
         return Symbol;
     }
 
-    public float getUsd() {
-        return Usd;
+    public float getRate() {
+        return Rate;
     }
 
     public float getTotal() {
         return Total;
     }
 
-    public float getToken() {
-        return Token;
+    public float getBuy() {
+        return Buy;
     }
 }

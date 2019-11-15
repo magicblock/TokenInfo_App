@@ -18,6 +18,7 @@ public class RecordBean {
     private float Total;
     private String Explain;
     private String CreateTime;
+    private float Size;
 
     public void setOpetation(int Opetation) {
         this.Operation = Opetation;
@@ -73,5 +74,13 @@ public class RecordBean {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public float getSize() {
+        return Size;
+    }
+
+    public void setSize(float size) {
+        Size = size;
     }
 }

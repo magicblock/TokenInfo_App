@@ -9,7 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.tokeninfo.R;
 import com.tokeninfo.ui.bean.RecordBean;
+import com.tokeninfo.util.MathUtil;
+import com.tokeninfo.util.TimeUtil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
@@ -49,18 +55,36 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RecordBean recordBean = recordBeanList.get(position);
 
-        holder.symbolTxt.setText(recordBean.getSymbol());
-        holder.timeTxt.setText(recordBean.getCreateTime());
-        if (recordBean.getOperation() == 1) {
-            holder.operationTxt.setText("[买入]");
-            holder.operationTxt.setBackgroundColor(context.getResources().getColor(R.color.color_blue));
-        } else {
-            holder.operationTxt.setText("[卖出]");
-            holder.operationTxt.setBackgroundColor(context.getResources().getColor(R.color.color_red));
+        holder.OpTxt.setText(OpToString(recordBean.getOperation()));
+        if (recordBean.getOperation() == 1 || recordBean.getOperation() == 4) {
+            holder.OpTxt.setTextColor(context.getResources().getColor(R.color.color_80BB8B));
+        } else if (recordBean.getOperation() == 2 || recordBean.getOperation() == 3) {
+            holder.OpTxt.setTextColor(context.getResources().getColor(R.color.color_DE7A74));
         }
 
-        holder.profitTxt.setText(recordBean.getTotal() + "");
-        holder.explainTxt.setText(recordBean.getExplain());
+        holder.symbolTxt.setText(recordBean.getSymbol().toUpperCase());
+        holder.timeTxt.setText(TimeUtil.ISO(recordBean.getCreateTime()));
+        holder.amountTxt.setText(context.getString(R.string.amount_size, MathUtil.decimail(recordBean.getSize(), 1)));
+        holder.priceTxt.setText(context.getString(R.string.price_dollar, MathUtil.decimail(recordBean.getPrice(), 3)));
+    }
+
+    String OpToString(int op) {
+        String string = "";
+        switch (op) {
+            case 1:
+                string = context.getString(R.string.bug_long);
+                break;
+            case 2:
+                string = context.getString(R.string.bug_short);
+                break;
+            case 3:
+                string = context.getString(R.string.sell_long);
+                break;
+            case 4:
+                string = context.getString(R.string.sell_short);
+                break;
+        }
+        return string;
     }
 
     @Override
@@ -70,19 +94,19 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
 
+        TextView OpTxt;
         TextView symbolTxt;
         TextView timeTxt;
-        TextView operationTxt;
-        TextView profitTxt;
-        TextView explainTxt;
+        TextView amountTxt;
+        TextView priceTxt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            OpTxt = itemView.findViewById(R.id.txt_operation);
             symbolTxt = itemView.findViewById(R.id.txt_symbol);
             timeTxt = itemView.findViewById(R.id.txt_time);
-            operationTxt = itemView.findViewById(R.id.txt_operation);
-            profitTxt = itemView.findViewById(R.id.txt_profit);
-            explainTxt = itemView.findViewById(R.id.txt_explain);
+            amountTxt = itemView.findViewById(R.id.txt_amount);
+            priceTxt = itemView.findViewById(R.id.txt_price);
         }
     }
 }

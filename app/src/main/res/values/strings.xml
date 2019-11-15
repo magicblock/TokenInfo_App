@@ -12,4 +12,23 @@
     <string name="error_network_timeout">网络超时</string>
     <string name="log_push_token">[提示]%s</string>
 
+    <string name="account_total">账户权益</string>
+    <string name="used">已使用</string>
+    <string name="profit_rate">浮动盈亏</string>
+
+    <string name="op_short">空</string>
+    <string name="op_long">多</string>
+    <string name="_short">开空</string>
+    <string name="_long">开多</string>
+    <string name="_add">加仓</string>
+    <string name="_stop">止损</string>
+
+    <string name="bug_long">买入开多</string>
+    <string name="bug_short">卖出开空</string>
+    <string name="sell_short">买入平空</string>
+    <string name="sell_long">卖出平多</string>
+
+    <string name="amount_size">数量     %.0f 张</string>
+    <string name="price_dollar">价格    $%.2f</string>
+
 </resources>
